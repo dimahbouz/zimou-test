@@ -8,7 +8,7 @@ import {useUserStore} from "./stores/userStore";
 import '@quasar/extras/material-icons/material-icons.css'
 import 'quasar/src/css/index.sass'
 import './css/app.scss';
-import {Notify, Quasar} from 'quasar';
+import {LocalStorage, Notify, Quasar} from 'quasar';
 
 const app = createApp(App);
 app.use(stores);
@@ -18,6 +18,12 @@ app.use(Quasar, {
 });
 
 const userStore = useUserStore();
+const accessToken = LocalStorage.getItem('at');
+if (accessToken) {
+    window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken;
+    await userStore.fetchConnectedUser();
+}
+
 router.beforeEach((to, from, next) => {
     if (
         !userStore.isAuth &&

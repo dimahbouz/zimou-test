@@ -38,4 +38,10 @@ class AuthController extends Controller
     {
         return UserResource::make(Auth::user())->response()->setStatusCode(Response::HTTP_OK);
     }
+
+    public function logout(): \Illuminate\Http\JsonResponse
+    {
+        Auth::user()->currentAccessToken()->delete();
+        return response()->json(['message' => 'Logged out successfully'])->setStatusCode(Response::HTTP_OK);
+    }
 }

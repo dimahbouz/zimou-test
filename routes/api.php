@@ -7,5 +7,6 @@ Route::prefix('v1')->group(function () {
     Route::post('/auth/login', [App\Http\Controllers\Authentication\AuthController::class, 'login']);
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/user', [App\Http\Controllers\Authentication\AuthController::class, 'user']);
+        Route::post('/auth/logout', [App\Http\Controllers\Authentication\AuthController::class, 'logout']);
     });
 });

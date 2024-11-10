@@ -9,6 +9,7 @@ use App\Http\Resources\Users\UserResource;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -31,5 +32,10 @@ class AuthController extends Controller
         return UserResource::make($user)->additional([
             'accessToken' => $user->createToken('login')->plainTextToken
         ])->response()->setStatusCode(Response::HTTP_OK);
+    }
+
+    public function user(): \Illuminate\Http\JsonResponse
+    {
+        return UserResource::make(Auth::user())->response()->setStatusCode(Response::HTTP_OK);
     }
 }

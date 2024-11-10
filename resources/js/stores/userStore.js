@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {LOGIN_URL, REGISTER_URL} from "../constants/urls";
+import {LOGGED_USER_URL, LOGIN_URL, REGISTER_URL} from "../constants/urls";
 import {LocalStorage} from "quasar";
 
 export const useUserStore = defineStore('userStore', {
@@ -31,6 +31,18 @@ export const useUserStore = defineStore('userStore', {
                 .catch(error => {
                     throw error;
                 })
+        },
+        async fetchConnectedUser() {
+            if (LocalStorage.getItem('at')) {
+                await axios.get(LOGGED_USER_URL)
+                    .then(({data}) => {
+                        this.isAuth = true;
+                        this.user = data.data;
+                    })
+                    .catch(error => {
+                        throw error;
+                    })
+            }
         },
     }
 });

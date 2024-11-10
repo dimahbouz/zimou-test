@@ -2,6 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+Route::get('/{catchAll}', function () {
     return view('welcome');
-});
+})->where('catchAll', '.*');

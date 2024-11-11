@@ -1,0 +1,350 @@
+[
+    {
+        "id": 1,
+        "country_id": 1,
+        "name": "Adrar",
+        "arabic_name": "أدرار"
+    },
+    {
+        "id": 2,
+        "country_id": 1,
+        "name": "Chlef",
+        "arabic_name": "الشلف"
+    },
+    {
+        "id": 3,
+        "country_id": 1,
+        "name": "Laghouat",
+        "arabic_name": "الأغواط"
+    },
+    {
+        "id": 4,
+        "country_id": 1,
+        "name": "Oum El Bouaghi",
+        "arabic_name": "أم البواقي"
+    },
+    {
+        "id": 5,
+        "country_id": 1,
+        "name": "Batna",
+        "arabic_name": "باتنة"
+    },
+    {
+        "id": 6,
+        "country_id": 1,
+        "name": "Béjaïa",
+        "arabic_name": " بجاية"
+    },
+    {
+        "id": 7,
+        "country_id": 1,
+        "name": "Biskra",
+        "arabic_name": "بسكرة"
+    },
+    {
+        "id": 8,
+        "country_id": 1,
+        "name": "Béchar",
+        "arabic_name": "بشار"
+    },
+    {
+        "id": 9,
+        "country_id": 1,
+        "name": "Blida",
+        "arabic_name": "البليدة"
+    },
+    {
+        "id": 10,
+        "country_id": 1,
+        "name": "Bouira",
+        "arabic_name": "البويرة"
+    },
+    {
+        "id": 11,
+        "country_id": 1,
+        "name": "Tamanrasset",
+        "arabic_name": "تمنراست"
+    },
+    {
+        "id": 12,
+        "country_id": 1,
+        "name": "Tébessa",
+        "arabic_name": "تبسة"
+    },
+    {
+        "id": 13,
+        "country_id": 1,
+        "name": "Tlemcen",
+        "arabic_name": "تلمسان"
+    },
+    {
+        "id": 14,
+        "country_id": 1,
+        "name": "Tiaret",
+        "arabic_name": "تيارت"
+    },
+    {
+        "id": 15,
+        "country_id": 1,
+        "name": "Tizi Ouzou",
+        "arabic_name": "تيزي وزو"
+    },
+    {
+        "id": 16,
+        "country_id": 1,
+        "name": "Alger",
+        "arabic_name": "الجزائر"
+    },
+    {
+        "id": 17,
+        "country_id": 1,
+        "name": "Djelfa",
+        "arabic_name": "الجلفة"
+    },
+    {
+        "id": 18,
+        "country_id": 1,
+        "name": "Jijel",
+        "arabic_name": "جيجل"
+    },
+    {
+        "id": 19,
+        "country_id": 1,
+        "name": "Sétif",
+        "arabic_name": "سطيف"
+    },
+    {
+        "id": 20,
+        "country_id": 1,
+        "name": "Saïda",
+        "arabic_name": "سعيدة"
+    },
+    {
+        "id": 21,
+        "country_id": 1,
+        "name": "Skikda",
+        "arabic_name": "سكيكدة"
+    },
+    {
+        "id": 22,
+        "country_id": 1,
+        "name": "Sidi Bel Abbès",
+        "arabic_name": "سيدي بلعباس"
+    },
+    {
+        "id": 23,
+        "country_id": 1,
+        "name": "Annaba",
+        "arabic_name": "عنابة"
+    },
+    {
+        "id": 24,
+        "country_id": 1,
+        "name": "Guelma",
+        "arabic_name": "قالمة"
+    },
+    {
+        "id": 25,
+        "country_id": 1,
+        "name": "Constantine",
+        "arabic_name": "قسنطينة"
+    },
+    {
+        "id": 26,
+        "country_id": 1,
+        "name": "Médéa",
+        "arabic_name": "المدية"
+    },
+    {
+        "id": 27,
+        "country_id": 1,
+        "name": "Mostaganem",
+        "arabic_name": "مستغانم"
+    },
+    {
+        "id": 28,
+        "country_id": 1,
+        "name": "M'Sila",
+        "arabic_name": "المسيلة"
+    },
+    {
+        "id": 29,
+        "country_id": 1,
+        "name": "Mascara",
+        "arabic_name": "معسكر"
+    },
+    {
+        "id": 30,
+        "country_id": 1,
+        "name": "Ouargla",
+        "arabic_name": "ورقلة"
+    },
+    {
+        "id": 31,
+        "country_id": 1,
+        "name": "Oran",
+        "arabic_name": "وهران"
+    },
+    {
+        "id": 32,
+        "country_id": 1,
+        "name": "El Bayadh",
+        "arabic_name": "البيض"
+    },
+    {
+        "id": 33,
+        "country_id": 1,
+        "name": "Illizi",
+        "arabic_name": "إليزي"
+    },
+    {
+        "id": 34,
+        "country_id": 1,
+        "name": "Bordj Bou Arreridj",
+        "arabic_name": "برج بوعريريج"
+    },
+    {
+        "id": 35,
+        "country_id": 1,
+        "name": "Boumerdès",
+        "arabic_name": "بومرداس"
+    },
+    {
+        "id": 36,
+        "country_id": 1,
+        "name": "El Tarf",
+        "arabic_name": "الطارف"
+    },
+    {
+        "id": 37,
+        "country_id": 1,
+        "name": "Tindouf",
+        "arabic_name": "تندوف"
+    },
+    {
+        "id": 38,
+        "country_id": 1,
+        "name": "Tissemsilt",
+        "arabic_name": "تيسمسيلت"
+    },
+    {
+        "id": 39,
+        "country_id": 1,
+        "name": "El Oued",
+        "arabic_name": "الوادي"
+    },
+    {
+        "id": 40,
+        "country_id": 1,
+        "name": "Khenchela",
+        "arabic_name": "خنشلة"
+    },
+    {
+        "id": 41,
+        "country_id": 1,
+        "name": "Souk Ahras",
+        "arabic_name": "سوق أهراس"
+    },
+    {
+        "id": 42,
+        "country_id": 1,
+        "name": "Tipaza",
+        "arabic_name": "تيبازة"
+    },
+    {
+        "id": 43,
+        "country_id": 1,
+        "name": "Mila",
+        "arabic_name": "ميلة"
+    },
+    {
+        "id": 44,
+        "country_id": 1,
+        "name": "Aïn Defla",
+        "arabic_name": "عين الدفلة"
+    },
+    {
+        "id": 45,
+        "country_id": 1,
+        "name": "Naâma",
+        "arabic_name": "النعامة"
+    },
+    {
+        "id": 46,
+        "country_id": 1,
+        "name": "Aïn Témouchent",
+        "arabic_name": "عين تيموشنت"
+    },
+    {
+        "id": 47,
+        "country_id": 1,
+        "name": "Ghardaïa",
+        "arabic_name": "غرداية"
+    },
+    {
+        "id": 48,
+        "country_id": 1,
+        "name": "Relizane",
+        "arabic_name": "غليزان"
+    },
+    {
+        "id": 49,
+        "country_id": 1,
+        "name": "Timimoun",
+        "arabic_name": "تيميمون"
+    },
+    {
+        "id": 50,
+        "country_id": 1,
+        "name": "Bordj Badji Mokhtar",
+        "arabic_name": "برج باجي مختار"
+    },
+    {
+        "id": 51,
+        "country_id": 1,
+        "name": "Ouled Djellal",
+        "arabic_name": "أولاد جلال"
+    },
+    {
+        "id": 52,
+        "country_id": 1,
+        "name": "Béni Abbès",
+        "arabic_name": "بني عباس"
+    },
+    {
+        "id": 53,
+        "country_id": 1,
+        "name": "In Salah",
+        "arabic_name": "عين صالح"
+    },
+    {
+        "id": 54,
+        "country_id": 1,
+        "name": "In Guezzam",
+        "arabic_name": "عين قزام"
+    },
+    {
+        "id": 55,
+        "country_id": 1,
+        "name": "Touggourt",
+        "arabic_name": "تقرت"
+    },
+    {
+        "id": 56,
+        "country_id": 1,
+        "name": "Djanet",
+        "arabic_name": "جانت"
+    },
+    {
+        "id": 57,
+        "country_id": 1,
+        "name": "El Meghaier",
+        "arabic_name": "المغير"
+    },
+    {
+        "id": 58,
+        "country_id": 1,
+        "name": "El Menia",
+        "arabic_name": "المنيعة"
+    }
+]

@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Helpers\StaticFunctions;
+use App\Models\Package;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
+
+class PackageRepository
+{
+    public function index(Request $request): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    {
+        $packageQuery = Package::query();
+        $packageQuery->when($request->has('storeId'), function (Builder $query) use ($request) {
+            $query->where('store_id', '=', $request->get('storeId'));
+        });
+        $packageQuery->when($request->has('communeId'), function (Builder $query) use ($request) {
+            $query->where('commune_id', '=', $request->get('communeId'));
+        });
+        $packageQuery->when($request->has('deliveryTypeId'), function (Builder $query) use ($request) {
+            $query->where('delivery_type_id', '=', $request->get('deliveryTypeId'));
+        });
+        $packageQuery->when($request->has('packageStatusId'), function (Builder $query) use ($request) {
+            $query->where('status_id', '=', $request->get('packageStatusId'));
+        });
+        $packageQuery->when($request->has('trackingCode'), function (Builder $query) use ($request) {
+            $query->where('tracking_code', '=', $request->get('trackingCode'));
+        });
+        $packageQuery->with(['store', 'commune.wilaya', 'delivery_type', 'package_status']);
+        return $packageQuery
+            ->paginate(StaticFunctions::getPerPageValueFromRequest($request))
+            ->withQueryString();
+    }
+}

@@ -8,5 +8,6 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/user', [App\Http\Controllers\Authentication\AuthController::class, 'user']);
         Route::post('/auth/logout', [App\Http\Controllers\Authentication\AuthController::class, 'logout']);
+        Route::get('/packages', [\App\Http\Controllers\Packages\PackageController::class, 'index']);
     });
 });

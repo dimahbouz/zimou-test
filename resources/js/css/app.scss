@@ -1,3 +1,46 @@
 .body-bg {
     background-color: adjust-color($color: $primary, $lightness: 30%);
 }
+
+.sticky-table {
+    max-height: 73vh;
+
+    td:first-child {
+        background-color: $primary;
+        color: white;
+    }
+
+    tr th {
+        position: sticky;
+        z-index: 2;
+        background-color: $primary;
+        color: white;
+    }
+
+    thead tr:last-child th {
+        top: 48px;
+        z-index: 3;
+    }
+
+    thead tr:first-child th {
+        top: 0;
+        z-index: 1;
+    }
+
+    tr:first-child th:first-child {
+        z-index: 3;
+    }
+
+    td:first-child {
+        z-index: 1;
+    }
+
+    td:first-child, th:first-child {
+        position: sticky;
+        left: 0;
+    }
+
+    tbody {
+        scroll-margin-top: 48px;
+    }
+}

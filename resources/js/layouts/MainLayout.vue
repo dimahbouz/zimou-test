@@ -3,6 +3,7 @@
         <q-header elevated>
             <q-toolbar>
                 <q-toolbar-title>
+                    <q-btn flat icon="menu" round @click="drawerLeft = !drawerLeft"/>
                     <q-btn
                         flat
                         label="Zimou"
@@ -12,7 +13,7 @@
                         to="/"
                     />
                 </q-toolbar-title>
-                <div>
+                <div v-if="userStore.isAuth">
                     <q-btn :label="userStore.user.name" flat icon="person">
                         <q-menu>
                             <q-card style="min-width: 250px;">
@@ -32,6 +33,21 @@
             </q-toolbar>
         </q-header>
 
+        <q-drawer
+            v-model="drawerLeft"
+            bordered
+            side="left">
+            <q-list separator>
+                <q-item v-ripple clickable to="/packages">
+                    <q-item-section avatar>
+                        <q-icon name="widgets"/>
+                    </q-item-section>
+                    <q-item-section>Packages</q-item-section>
+                </q-item>
+                <q-separator/>
+            </q-list>
+        </q-drawer>
+
         <q-page-container>
             <router-view/>
         </q-page-container>
@@ -49,6 +65,8 @@ defineOptions({
 
 const router = useRouter();
 const userStore = useUserStore();
+
+const drawerLeft = ref(false);
 
 const logoutLoader = ref(false);
 const logout = async () => {

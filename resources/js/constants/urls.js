@@ -3,7 +3,10 @@ const REGISTER_URL = 'auth/register';
 const LOGIN_URL = 'auth/login';
 const LOGGED_USER_URL = 'user';
 const LOGOUT_URL = 'auth/logout';
-const INDEX_PACKAGES = '/packages'
+const INDEX_PACKAGES = '/packages';
+const INDEX_STORES = '/stores';
+const INDEX_PACKAGE_STATUSES = '/package_statuses';
+const INDEX_DELIVERY_TYPES = '/delivery_types';
 
 export function formatUrl(urlString, params = {}, queries = {}) {
     for (const [key, value] of Object.entries(params)) {
@@ -24,4 +27,7 @@ export {
     LOGGED_USER_URL,
     LOGOUT_URL,
     INDEX_PACKAGES,
+    INDEX_STORES,
+    INDEX_PACKAGE_STATUSES,
+    INDEX_DELIVERY_TYPES,
 }

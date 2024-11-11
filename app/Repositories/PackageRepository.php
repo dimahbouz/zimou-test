@@ -3,7 +3,9 @@
 namespace App\Repositories;
 
 use App\Helpers\StaticFunctions;
+use App\Models\DeliveryType;
 use App\Models\Package;
+use App\Models\PackageStatus;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -29,6 +31,26 @@ class PackageRepository
         });
         $packageQuery->with(['store', 'commune.wilaya', 'delivery_type', 'package_status']);
         return $packageQuery
+            ->paginate(StaticFunctions::getPerPageValueFromRequest($request))
+            ->withQueryString();
+    }
+
+    public function indexDeliveryTypes(Request $request): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    {
+        return DeliveryType
+            ::when($request->has('name'), function (Builder $query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->get('name') . '%');
+            })
+            ->paginate(StaticFunctions::getPerPageValueFromRequest($request))
+            ->withQueryString();
+    }
+
+    public function indexPackageStatuses(Request $request): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    {
+        return PackageStatus
+            ::when($request->has('name'), function (Builder $query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->get('name') . '%');
+            })
             ->paginate(StaticFunctions::getPerPageValueFromRequest($request))
             ->withQueryString();
     }

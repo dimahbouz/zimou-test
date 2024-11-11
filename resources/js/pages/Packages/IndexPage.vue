@@ -4,8 +4,18 @@
         <div v-else>
             <div class="row justify-between items-center">
                 <div class="text-h5">Packages</div>
-                <div>
-
+                <div class="col-auto">
+                    <div class="row items-center">
+                        <div class="q-px-sm">
+                            <q-btn color="primary" label="Add" rounded/>
+                        </div>
+                        <div class="q-px-sm">
+                            <q-btn color="secondary" label="Export" rounded/>
+                        </div>
+                        <div class="q-px-sm">
+                            <q-btn dense flat icon="filter_alt" round @click="filterDialog = true"/>
+                        </div>
+                    </div>
                 </div>
             </div>
             <q-card class="q-mt-md">
@@ -37,6 +47,10 @@
                     />
                 </div>
             </q-card>
+
+            <q-dialog v-model="filterDialog">
+                <packagesFilter @validate="updateFilter"/>
+            </q-dialog>
         </div>
     </q-page>
 </template>
@@ -45,6 +59,7 @@
 import {onMounted, ref, watch} from "vue";
 import {formatUrl, INDEX_PACKAGES} from "@/constants/urls.js";
 import tableLoader from '@/components/tableLoader.vue';
+import packagesFilter from '@/components/packagesFilter.vue';
 import {useRoute, useRouter} from "vue-router";
 
 defineOptions({
@@ -87,12 +102,18 @@ const firstLoad = ref(false);
 onMounted(async () => {
     firstLoad.value = true;
     if ($route.query.page) pagination.value.page = parseInt($route.query.page);
+    if ($route.query.storeId) filter.value.storeId = parseInt($route.query.storeId);
+    if ($route.query.packageStatusId) filter.value.packageStatusId = parseInt($route.query.packageStatusId);
+    if ($route.query.deliveryTypeId) filter.value.deliveryTypeId = parseInt($route.query.deliveryTypeId);
     await loadPackages().finally(() => firstLoad.value = false);
 });
 
 const loadPackages = async () => {
     loading.value = true;
-    await axios.get(formatUrl(INDEX_PACKAGES, {}, {page: pagination.value.page, perPage: pagination.value.rowsPerPage}))
+    let urlQuery = JSON.parse(JSON.stringify(filter.value));
+    urlQuery.page = pagination.value.page;
+    urlQuery.perPage = pagination.value.rowsPerPage;
+    await axios.get(formatUrl(INDEX_PACKAGES, {}, urlQuery))
         .then(({data}) => {
             packages.value = data.data;
             pagination.value.rowsNumber = data.meta.total;
@@ -104,11 +125,25 @@ watch(
     () => pagination.value.page,
     async () => {
         if (!firstLoad.value) {
-            await loadPackages();
             let routeQuery = {...$route.query};
             routeQuery.page = pagination.value.page;
             $router.push({name: "IndexPackages", query: routeQuery});
+            await loadPackages();
         }
     }
 )
+
+const filter = ref({});
+const filterDialog = ref(false);
+const updateFilter = async (newFilter) => {
+    let route = {name: 'IndexPackages'};
+    filter.value = newFilter;
+    if (Object.keys(newFilter).length === 0) {
+        filter.value = {};
+    } else route.query = newFilter;
+    await $router.push(route);
+    if (pagination.value.page !== 1) {
+        pagination.value.page = 1;
+    } else await loadPackages();
+}
 </script>

@@ -16,6 +16,11 @@ const routes = [
                 path: "",
                 component: () => import("../pages/HomePage.vue"),
             },
+            {
+                path: "packages",
+                name: "IndexPackages",
+                component: () => import("../pages/Packages/IndexPage.vue"),
+            },
         ],
         meta: {
             requiresAuth: true,

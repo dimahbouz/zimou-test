@@ -22,6 +22,7 @@ class IndexPackageStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'id' => ['integer'],
             'name' => ['string']
         ];
     }

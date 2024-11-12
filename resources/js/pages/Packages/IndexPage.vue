@@ -28,6 +28,19 @@
                     hide-pagination
                     row-key="id"
                     @request="loadPackages">
+
+                    <template v-slot:body="props">
+                        <q-tr
+                            :props="props"
+                            class="cursor-pointer"
+                            @click="$router.push(`/packages/${props.row.id}`)"
+                        >
+                            <q-td v-for="col in props.cols" :key="col.name" :props="props">
+                                {{ col.value }}
+                            </q-td>
+                        </q-tr>
+                    </template>
+
                     <template v-slot:loading>
                         <q-inner-loading color="primary" showing/>
                     </template>
@@ -49,7 +62,7 @@
             </q-card>
 
             <q-dialog v-model="filterDialog">
-                <packagesFilter @validate="updateFilter"/>
+                <packagesFilter :filter="filter" @validate="updateFilter"/>
             </q-dialog>
         </div>
     </q-page>

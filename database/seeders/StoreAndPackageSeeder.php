@@ -38,7 +38,7 @@ class StoreAndPackageSeeder extends Seeder
             }
             DB::table('stores')->insert($storeData);
 
-            $storeIds = Store::orderByDesc('created_at')->limit(STORES_LOT)->pluck('id')->toArray();
+            $storeIds = Store::orderByDesc('id')->limit(STORES_LOT)->pluck('id')->toArray();
             foreach ($storeIds as $storeId) {
                 $packageData = [];
                 for ($k = 0; $k < PACKAGES_PER_STORE; $k++) {

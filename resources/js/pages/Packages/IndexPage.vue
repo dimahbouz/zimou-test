@@ -118,6 +118,8 @@ onMounted(async () => {
     if ($route.query.storeId) filter.value.storeId = parseInt($route.query.storeId);
     if ($route.query.packageStatusId) filter.value.packageStatusId = parseInt($route.query.packageStatusId);
     if ($route.query.deliveryTypeId) filter.value.deliveryTypeId = parseInt($route.query.deliveryTypeId);
+    if ($route.query.wilayaId) filter.value.wilayaId = parseInt($route.query.wilayaId);
+    if ($route.query.communeId) filter.value.communeId = parseInt($route.query.communeId);
     await loadPackages().finally(() => firstLoad.value = false);
 });
 

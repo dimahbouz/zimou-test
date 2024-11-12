@@ -17,6 +17,9 @@ class PackageRepository
         $packageQuery->when($request->has('storeId'), function (Builder $query) use ($request) {
             $query->where('store_id', '=', $request->get('storeId'));
         });
+        $packageQuery->when($request->has('wilayaId'), function (Builder $query) use ($request) {
+            $query->whereRelation('commune', 'wilaya_id', '=', $request->get('wilayaId'));
+        });
         $packageQuery->when($request->has('communeId'), function (Builder $query) use ($request) {
             $query->where('commune_id', '=', $request->get('communeId'));
         });

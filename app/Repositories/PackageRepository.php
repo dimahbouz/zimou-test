@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class PackageRepository
 {
-    public function index(Request $request): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    public function index(Request $request): \Illuminate\Database\Eloquent\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $packageQuery = Package::query();
         $packageQuery->when($request->has('storeId'), function (Builder $query) use ($request) {
@@ -33,9 +33,13 @@ class PackageRepository
             $query->where('tracking_code', '=', $request->get('trackingCode'));
         });
         $packageQuery->with(['store', 'commune.wilaya', 'delivery_type', 'package_status']);
-        return $packageQuery
-            ->paginate(StaticFunctions::getPerPageValueFromRequest($request))
-            ->withQueryString();
+        if ($request->has('export') and $request->get('export') == 'all') {
+            return $packageQuery->get();
+        } else {
+            return $packageQuery
+                ->paginate(StaticFunctions::getPerPageValueFromRequest($request))
+                ->withQueryString();
+        }
     }
 
     public function indexDeliveryTypes(Request $request): \Illuminate\Contracts\Pagination\LengthAwarePaginator

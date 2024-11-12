@@ -27,7 +27,8 @@ class IndexRequest extends FormRequest
             'communeId' => ['integer', 'exists:communes,id'],
             'deliveryTypeId' => ['integer', 'exists:delivery_types,id'],
             'packageStatusId' => ['integer', 'exists:package_statuses,id'],
-            'trackingCode' => ['string']
+            'trackingCode' => ['string'],
+            'export' => ['string'],
         ];
     }
 }

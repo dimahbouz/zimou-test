@@ -10,7 +10,7 @@
                             <q-btn color="primary" label="Add" rounded/>
                         </div>
                         <div class="q-px-sm">
-                            <q-btn color="secondary" label="Export" rounded/>
+                          <q-btn color="secondary" label="Export" rounded @click="exportDialog = true"/>
                         </div>
                         <div class="q-px-sm">
                             <q-btn dense flat icon="filter_alt" round @click="filterDialog = true"/>
@@ -64,6 +64,30 @@
             <q-dialog v-model="filterDialog">
                 <packagesFilter :filter="filter" @validate="updateFilter"/>
             </q-dialog>
+          <q-dialog v-model="exportDialog" @hide="hideExportDialog">
+            <q-card>
+              <q-card-section class="row justify-center items-center">
+                <div class="col-12 q-mb-md text-center text-body1 text-bold">Export Data</div>
+                <div class="col-12 q-pa-sm">
+                  <q-select v-model="exportType" :options="exportTypes" label="Export in file" outlined rounded/>
+                </div>
+                <div class="col-12 q-pa-sm">
+                  <q-select v-model="exportContent" :options="exportContents" label="Content" outlined rounded/>
+                </div>
+              </q-card-section>
+              <q-card-actions align="right" class="q-px-md q-pb-md q-pt-none">
+                <div class="q-px-sm">
+                  <q-btn v-close-popup flat label="Cancel" rounded/>
+                </div>
+                <div class="q-px-sm">
+                  <q-btn color="primary" label="Export" rounded @click="exportData"/>
+                </div>
+              </q-card-actions>
+              <q-inner-loading :showing="exportLoader">
+                <q-spinner color="primary" size="50px"/>
+              </q-inner-loading>
+            </q-card>
+          </q-dialog>
         </div>
     </q-page>
 </template>
@@ -74,6 +98,7 @@ import {formatUrl, INDEX_PACKAGES} from "@/constants/urls.js";
 import tableLoader from '@/components/tableLoader.vue';
 import packagesFilter from '@/components/packagesFilter.vue';
 import {useRoute, useRouter} from "vue-router";
+import exportFromJSON from "export-from-json";
 
 defineOptions({
     name: 'PackageIndexPage'
@@ -123,18 +148,32 @@ onMounted(async () => {
     await loadPackages().finally(() => firstLoad.value = false);
 });
 
-const loadPackages = async () => {
+const controller = new AbortController();
+const signal = controller.signal;
+const loadPackages = async (exportData = false) => {
+  if (!exportData) {
     loading.value = true;
+  } else exportLoader.value = true;
     let urlQuery = JSON.parse(JSON.stringify(filter.value));
+  if (!exportData) {
     urlQuery.page = pagination.value.page;
     urlQuery.perPage = pagination.value.rowsPerPage;
-    await axios.get(formatUrl(INDEX_PACKAGES, {}, urlQuery))
+  } else urlQuery.export = 'all';
+  let dataToExport = [];
+  await axios.get(formatUrl(INDEX_PACKAGES, {}, urlQuery), {signal})
         .then(({data}) => {
+          if (!exportData) {
             packages.value = data.data;
             pagination.value.rowsNumber = data.meta.total;
             pagination.value.maxPages = Math.ceil(pagination.value.rowsNumber / pagination.value.rowsPerPage);
+          } else dataToExport = data.data;
         }).catch(error => {
-        }).finally(() => loading.value = false);
+      }).finally(() => {
+        if (!exportData) {
+          loading.value = false;
+        } else exportLoader.value = false;
+      });
+  return dataToExport;
 }
 watch(
     () => pagination.value.page,
@@ -160,5 +199,43 @@ const updateFilter = async (newFilter) => {
     if (pagination.value.page !== 1) {
         pagination.value.page = 1;
     } else await loadPackages();
+}
+
+const exportDialog = ref(false);
+const exportType = ref({label: 'Csv', value: 'csv'});
+const exportTypes = ref([{label: 'Csv', value: 'csv'}, {label: 'Excel', value: 'xls'}]);
+const exportContent = ref({label: 'This page only', value: 'page'});
+const exportContents = ref([{label: 'This page only', value: 'page'}, {label: 'All data', value: 'all'}]);
+const exportLoader = ref(false);
+const exportData = async () => {
+  let packagesToExport = packages.value;
+  if (exportContent.value.value === 'all' && pagination.value.maxPages > 1) {
+    packagesToExport = await loadPackages(true);
+  }
+  let content = [
+    columns.map(column => column.label),
+    ...packagesToExport.map(row => {
+      return columns.map(col => col.field === 'client_phone' ? `'${row[col.field]}'` : row[col.field])
+    })
+  ];
+
+  if (packagesToExport.length > 0) {
+    exportFromJSON({
+      data: content,
+      fileName: 'data',
+      exportType: exportType.value.value,
+      delimiter: ',',
+      withBOM: true,
+    });
+  }
+  exportDialog.value = false;
+}
+const hideExportDialog = () => {
+  exportType.value = {label: 'Csv', value: 'csv'};
+  exportContent.value = {label: 'This page only', value: 'page'};
+  if (exportLoader.value) {
+    controller.abort();
+    exportLoader.value = false;
+  }
 }
 </script>

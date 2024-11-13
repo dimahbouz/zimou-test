@@ -14,5 +14,6 @@ Route::prefix('v1')->group(function () {
         Route::get('/delivery_types', [\App\Http\Controllers\Packages\DeliveryTypeController::class, 'index']);
         Route::get('/wilayas', [\App\Http\Controllers\Wilayas\WilayaController::class, 'index']);
         Route::get('/communes', [\App\Http\Controllers\Communes\CommuneController::class, 'index']);
+        Route::post('/packages', [\App\Http\Controllers\Packages\PackageController::class, 'store']);
     });
 });

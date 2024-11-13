@@ -9,6 +9,7 @@ const INDEX_PACKAGE_STATUSES = '/package_statuses';
 const INDEX_DELIVERY_TYPES = '/delivery_types';
 const INDEX_WILAYAS = '/wilayas';
 const INDEX_COMMUNES = '/communes';
+const CREATE_PACKAGE_URL = '/packages'
 
 export function formatUrl(urlString, params = {}, queries = {}) {
     for (const [key, value] of Object.entries(params)) {
@@ -34,4 +35,5 @@ export {
     INDEX_DELIVERY_TYPES,
     INDEX_WILAYAS,
     INDEX_COMMUNES,
+    CREATE_PACKAGE_URL,
 }

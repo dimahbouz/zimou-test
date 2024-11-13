@@ -67,4 +67,9 @@ class PackageRepository
             ->paginate(StaticFunctions::getPerPageValueFromRequest($request))
             ->withQueryString();
     }
+
+    public function store(Request $request): \Illuminate\Database\Eloquent\Model|Package
+    {
+        return Package::create($request->only(['uuid', 'tracking_code', 'status_id', 'name', 'store_id', 'client_first_name', 'client_last_name', 'client_phone', 'client_phone2', 'address', 'commune_id', 'delivery_type_id', 'can_be_opened', 'free_delivery', 'delivery_price', 'price', 'price_to_pay', 'total_price', 'cod_to_pay', 'commission', 'extra_weight_price', 'packaging_price', 'partner_cod_price', 'partner_delivery_price', 'partner_return', 'return_price', 'weight']));
+    }
 }

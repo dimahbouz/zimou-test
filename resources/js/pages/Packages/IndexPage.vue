@@ -7,7 +7,7 @@
                 <div class="col-auto">
                     <div class="row items-center">
                         <div class="q-px-sm">
-                            <q-btn color="primary" label="Add" rounded/>
+                            <q-btn color="primary" label="Add" rounded @click="createPackageDialog = true"/>
                         </div>
                         <div class="q-px-sm">
                           <q-btn color="secondary" label="Export" rounded @click="exportDialog = true"/>
@@ -88,6 +88,9 @@
               </q-inner-loading>
             </q-card>
           </q-dialog>
+            <q-dialog v-model="createPackageDialog">
+                <createPackage @created="packageCreated"/>
+            </q-dialog>
         </div>
     </q-page>
 </template>
@@ -97,6 +100,7 @@ import {onMounted, ref, watch} from "vue";
 import {formatUrl, INDEX_PACKAGES} from "@/constants/urls.js";
 import tableLoader from '@/components/tableLoader.vue';
 import packagesFilter from '@/components/packagesFilter.vue';
+import createPackage from '@/components/createPackage.vue';
 import {useRoute, useRouter} from "vue-router";
 import exportFromJSON from "export-from-json";
 
@@ -237,5 +241,11 @@ const hideExportDialog = () => {
     controller.abort();
     exportLoader.value = false;
   }
+}
+
+const createPackageDialog = ref(false);
+const packageCreated = (packageData) => {
+    createPackageDialog.value = false;
+    packages.value.unshift(packageData);
 }
 </script>

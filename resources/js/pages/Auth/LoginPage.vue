@@ -10,10 +10,12 @@
                     </div>
                     <div class="row justify-center items-center">
                         <div class="col-12 q-pa-sm">
-                            <q-input v-model="email" label="Email *" outlined required rounded/>
+                            <q-input v-model="email" :error="errors.indexOf('email') >= 0" error-message="This field is required"
+                                     label="Email *" outlined required rounded/>
                         </div>
                         <div class="col-12 q-pa-sm">
-                            <q-input v-model="password" label="Password *" outlined required rounded type="password"/>
+                            <q-input v-model="password" :error="errors.indexOf('password') >= 0" error-message="This field is required"
+                                     label="Password *" outlined required rounded type="password"/>
                         </div>
                         <div class="col-12 q-pa-sm">
                             <q-btn :loading="loginLoader" class="full-width" color="primary" label="Login" rounded
@@ -47,8 +49,13 @@ const $q = useQuasar();
 const email = ref('');
 const password = ref('');
 const loginLoader = ref(false);
+const errors = ref([]);
 const login = async () => {
     if (loginLoader.value) return;
+    errors.value = [];
+    if (email.value === '') errors.value.push('email');
+    if (password.value === '') errors.value.push('password');
+    if (errors.value.length > 0) return;
     loginLoader.value = true;
     const user = {
         email: email.value,

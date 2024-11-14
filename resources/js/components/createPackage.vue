@@ -189,6 +189,7 @@ const emit = defineEmits(['created']);
 const createLoader = ref(false);
 const errors = ref([]);
 const createPackage = async () => {
+    if (createLoader.value) return;
     errors.value = [];
     if (!store.value) errors.value.push('store');
     if (clientFirstName.value === '') errors.value.push('clientFirstName');

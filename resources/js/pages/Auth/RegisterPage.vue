@@ -9,16 +9,21 @@
                 </div>
                 <div class="row justify-center items-center">
                     <div class="col-12 q-pa-sm">
-                        <q-input v-model="name" label="Name *" outlined required rounded/>
+                        <q-input v-model="name" :error="errors.indexOf('name') >= 0" error-message="This field is required"
+                                 label="Name *" outlined required rounded/>
                     </div>
                     <div class="col-12 q-pa-sm">
-                        <q-input v-model="email" label="Email *" outlined required rounded/>
+                        <q-input v-model="email" :error="errors.indexOf('email') >= 0" error-message="This field is required"
+                                 label="Email *" outlined required rounded/>
                     </div>
                     <div class="col-12 q-pa-sm">
-                        <q-input v-model="password" label="Password *" outlined required rounded type="password"/>
+                        <q-input v-model="password" :error="errors.indexOf('password') >= 0" error-message="This field is required"
+                                 label="Password *" outlined required rounded type="password"/>
                     </div>
                     <div class="col-12 q-pa-sm">
-                        <q-input v-model="password_confirmation" label="Password confirmation *" outlined required
+                        <q-input v-model="password_confirmation" :error="errors.indexOf('password_confirmation') >= 0"
+                                 error-message="This field is required"
+                                 label="Password confirmation *" outlined required
                                  rounded type="password"/>
                     </div>
                     <div class="col-12 q-pa-sm">
@@ -54,8 +59,15 @@ const email = ref('');
 const password = ref('');
 const password_confirmation = ref('');
 const registerLoader = ref(false);
+const errors = ref([]);
 const register = async () => {
     if (registerLoader.value) return;
+    errors.value = [];
+    if (name.value === '') errors.value.push('name');
+    if (email.value === '') errors.value.push('email');
+    if (password.value === '') errors.value.push('password');
+    if (password_confirmation.value === '') errors.value.push('password_confirmation');
+    if (errors.value.length > 0) return;
     registerLoader.value = true;
     const user = {
         name: name.value,
